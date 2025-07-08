@@ -43,7 +43,7 @@ static char	**ft_splitrec(const char *s, char c, size_t depth)
 	while (s[start + len] && s[start + len] != c)
 		++len;
 	if (!start || !len)
-		ft_splitinit(depth);
+		return (ft_splitinit(depth));
 	substr = ft_strndup(s + start, len);
 	if (!substr)
 		return (NULL);
