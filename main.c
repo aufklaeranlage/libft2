@@ -1,9 +1,9 @@
-#include "ft_string.h"
+#include "ft_split.h"
 
 int main(void)
 {
-	char *s;
+	char **s;
 
-	s = ft_strtrim("   xxx   xxx", " x");
+	s = ft_split("tripouille", 0);
 	return (0);
 }
