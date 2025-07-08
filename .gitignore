@@ -1,0 +1,12 @@
+libftTester
+libft.a
+objs/
+
+# cmake
+CMakeLists.txt
+cmake/
+compile_commands.json
+
+# dotfiles
+.*
+!.gitignore

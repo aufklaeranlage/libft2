@@ -1,0 +1,140 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: abronner <abronner@student.42berlin.de>      +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2025/03/10 10:46:56 by abronner          #+#    #+#              #
+#    Updated: 2025/07/08 19:34:24 by abronner         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+include colors.mk
+
+NAME		:=	libft.a
+
+# * DIRECTORIES ************************************************************** #
+
+SRC_DIR		:=	srcs/
+
+OBJ_DIR		:=	objs/
+
+SUB_DIR		:=	ctype/ std/ strings/ split/
+
+INC_DIR		:=	incl/
+
+# * SOURCES & OBJECTS ******************************************************** #
+
+SRCS		:=	
+
+S_CTYPE		:=	alpha.c digit.c alnum.c graph.c print.c special.c convert.c
+
+O_CTYPE		:=	$(patsubst %.c,$(OBJ_DIR)%.o,$(S_CTYPE))
+
+S_STD		:=	mem.c convert.c
+
+O_STD		:=	$(patsubst %.c,$(OBJ_DIR)%.o,$(S_STD))
+
+S_STRING	:=	check.c copy.c search.c create.c
+
+O_STRING	:=	$(patsubst %.c,$(OBJ_DIR)%.o,$(S_STRING))
+
+S_SPLIT		:=	split.c
+
+O_SPLIT		:=	$(patsubst %.c,$(OBJ_DIR)%.o,$(S_SPLIT))
+
+OBJS		:=	$(patsubst %.c,$(OBJ_DIR)%.o,$(SRCS))
+
+
+# * COMMANDS ***************************************************************** #
+
+CC			:=	cc
+
+CFLAGS		:=	-Wall -Wextra -Werror
+
+g:	CFLAGS	+=	-g
+
+CPPFLAGS	:=	-I$(INC_DIR)
+
+LIBFLAGS	:=	
+
+
+# * COMMANDS ***************************************************************** #
+
+PRNT		:= printf
+
+RM			:= rm -rf
+
+# * V PATH ******************************************************************* #
+
+vpath %.c $(SRC_DIR) $(patsubst %, $(SRC_DIR)%, $(SUB_DIR))
+
+# * RULES ******************************************************************** #
+
+all: $(NAME)
+
+g: p_g $(NAME)
+
+p_g:
+	@$(PRNT) "Compiling $(P_NAME) with $(P_FLAG) flag\n"
+
+ctype: $(OBJ_DIR) $(O_CTYPE)
+	@ar rcs $(NAME) $(O_CTYPE)
+	@$(PRNT) "Adding $(P_CTYPE) files to $(P_NAME).\n"
+
+std: $(OBJ_DIR) $(O_STD)
+	@ar rcs $(NAME) $(O_STD)
+	@$(PRNT) "Adding $(P_STD) files to $(P_NAME).\n"
+
+string: $(OBJ_DIR) std $(O_STRING)
+	@ar rcs $(NAME) $(O_STRING)
+	@$(PRNT) "Adding $(P_STRING) files to $(P_NAME).\n"
+
+split: $(OBJ_DIR) string $(O_SPLIT)
+	@ar rcs $(NAME) $(O_SPLIT)
+	@$(PRNT) "Adding $(P_SPLIT) files to $(P_NAME).\n"
+
+$(NAME): p_name ctype std string split
+
+p_name:
+	@$(PRNT) "Creating library $(P_NAME).\n"
+
+$(OBJ_DIR):
+	@mkdir -p $(OBJ_DIR)
+	@$(PRNT) "Creating $(P_ODIR) directory.\n"
+
+$(OBJ_DIR)%.o: %.c 
+	@$(CC) $(CFLAGS) $(CPPFLAGS) $^ -c -o $@
+	@$(PRNT) "Compiling $(P_AT).\n"
+
+re: fclean all
+
+clean:
+	@$(RM) $(OBJ_DIR)
+	@$(PRNT) "Deleting object files for $(P_NAME).\n"
+
+fclean: clean
+	@$(RM) $(NAME)
+	@$(PRNT) "Deleting library $(P_NAME).\n"
+
+.PHONY: all bonus re clean fclean make \
+	ctype
+
+# * PRINTING PRESETS ********************************************************************** #
+
+P_NAME=$(C_RED)$(BLD)$(NAME)$(RESET)
+
+P_ODIR=$(C_BLU)$(BLD)$(OBJ_DIR)$(RESET)
+
+P_FLAG=$(C_MAG)-g$(RESET)
+
+P_CTYPE=$(C_YLW)$(BLD)ctype$(RESET)
+
+P_STD=$(C_YLW)$(BLD)std$(RESET)
+
+P_STRING=$(C_YLW)$(BLD)string$(RESET)
+
+P_SPLIT=$(C_YLW)$(BLD)split$(RESET)
+
+P_AT=$(C_GRN)$(BLD)$@$(RESET)
