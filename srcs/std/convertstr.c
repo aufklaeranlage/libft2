@@ -1,16 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   convert.c                                          :+:      :+:    :+:   */
+/*   convertstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abronner <abronner@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 05:57:43 by abronner          #+#    #+#             */
-/*   Updated: 2025/06/30 07:00:58 by abronner         ###   ########.fr       */
+/*   Updated: 2025/07/09 07:30:56 by abronner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#define BASE36="0123456789abcdefghijklmnopqrstuvwxyz"
+#include "ft_std.h"
+
+#include <limits.h>
+
+static long	base_zero(const char *s, char **endptr, const char *sbase);
+
+static long	calculate_value(const char *s, char **endptr, const char *sbase, \
+							int base);
 
 //	Converts the inital portion of string 's' into a long integer value
 //	according to the given base, which must be between 2 and 36 inclusive, or
@@ -31,63 +38,73 @@
 //	flow. If and underflow occurs, returns LONG_MIN; if an overflow occurs
 //	returns LONG_MAX.
 
-static int	base_zero(const char *s, int *i);
-
 long	ft_strtol(const char *s, char **endptr, int base)
 {
 	const char	sbase[37] = BASE36;
 	size_t		i;
-	long		val;
-	long		dig;
 	long		sign;
 
 	if (!s || base < 0 || base == 1 || base > 36)
-		return (NULL);
+		return (0);
 	i = 0;
 	while (ft_isspace(s[i]))
 		++i;
-	if (base == 0)
-		base = base_zero(s, &i);
-	sbase[base] = '\0';
-	val = 0;
-	while (1)
+	sign = 1;
+	if (s[i] == '-' || s[i] == '+')
 	{
-		dig_c = ft_strchr(sbase, s[i]);
-		if (!dig_c)
-			break ;
-		dig = dig_c - s;
-		if (flow_check())
-			return ()
-		val *= 10;
-		val += dig;
+		if (s[i] == '-')
+			sign = -1;
 		++i;
 	}
+	if (endptr)
+		*endptr = (char *)s + i;
+	if (base == 0)
+		return base_zero(s + i, endptr, sbase);
+	return (sign * calculate_value(s + i, endptr, sbase, base));
 }
 
-//	Checks whether a base is decimal, octal or hex based on the string 's' at
-//	the offset stored at 'i'. Changes the offset of 'i' while moving through the
-//	string to determine the base, so the offset is the start of the digit string
-//	without any prefixes.
-
-static int	base_zero(const char *s, int *i)
-{
-	if (s[*i] != '0')
-		return (10);
-	++*i;
-	if (s[*i] != 'x' && s[*i] != 'X')
-		return (8);
-	++*i;
-	return (16);
-}
-
-static int	base_char(const char *base, int baselen, char c, long *dig)
+static long	base_zero(const char *s, char **endptr, const char *sbase)
 {
 	size_t	i;
 
 	i = 0;
-	while (base[i] && i < baselen)
+	if (s[i] != '0')
+		return (calculate_value(s + i, endptr, sbase, 10));
+	++i;
+	if (endptr)
+		++(*endptr);
+	if (s[i] != 'x' && s[i] != 'X')
+		return (calculate_value(s + i, endptr, sbase, 8));
+	++i;
+	if (endptr)
+		++(*endptr);
+	return (calculate_value(s + i, endptr, sbase, 16));
+}
+
+//	dig small zero check needs to be before overflow check because LONG_MAX will
+//	overflow if dig is -1.
+
+static long	calculate_value(const char *s, char **endptr, const char *sbase, int base)
+{
+	size_t	i;
+	long 	val;
+	long	dig;
+
+	i = 0;
+	val = 0;
+	dig = 0;
+	while (dig >= 0)
 	{
-		if (base[i] == c)
-			return (offset =)
+		dig = (long)ft_basechr(sbase, base, s[i]);
+		if (dig < 0)
+			break ;
+		if ((LONG_MAX - dig) / base < val)
+			return (LONG_MAX);
+		val *= base;
+		val += dig;
+		++i;
 	}
+	if (endptr)
+		*endptr += i;
+	return (val);
 }

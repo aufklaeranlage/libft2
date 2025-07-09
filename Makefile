@@ -6,7 +6,7 @@
 #    By: abronner <abronner@student.42berlin.de>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/10 10:46:56 by abronner          #+#    #+#              #
-#    Updated: 2025/07/08 19:34:24 by abronner         ###   ########.fr        #
+#    Updated: 2025/07/09 07:32:43 by abronner         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,11 +28,11 @@ INC_DIR		:=	incl/
 
 SRCS		:=	
 
-S_CTYPE		:=	alpha.c digit.c alnum.c graph.c print.c special.c convert.c
+S_CTYPE		:=	alpha.c digit.c alnum.c graph.c print.c special.c convertchr.c
 
 O_CTYPE		:=	$(patsubst %.c,$(OBJ_DIR)%.o,$(S_CTYPE))
 
-S_STD		:=	mem.c convert.c
+S_STD		:=	mem.c convertstr.c convertstr_utils.c convertstr_wrappers.c
 
 O_STD		:=	$(patsubst %.c,$(OBJ_DIR)%.o,$(S_STD))
 
@@ -83,7 +83,7 @@ ctype: $(OBJ_DIR) $(O_CTYPE)
 	@ar rcs $(NAME) $(O_CTYPE)
 	@$(PRNT) "Adding $(P_CTYPE) files to $(P_NAME).\n"
 
-std: $(OBJ_DIR) $(O_STD)
+std: $(OBJ_DIR) ctype $(O_STD)
 	@ar rcs $(NAME) $(O_STD)
 	@$(PRNT) "Adding $(P_STD) files to $(P_NAME).\n"
 

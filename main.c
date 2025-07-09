@@ -1,9 +1,10 @@
-#include "ft_split.h"
+#include "ft_std.h"
 
 int main(void)
 {
-	char **s;
+	long i;
+	char *s;
 
-	s = ft_split("tripouille", 0);
+	i = ft_atoi("\011\012\013\014\0151");
 	return (0);
 }

@@ -1,27 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print.c                                            :+:      :+:    :+:   */
+/*   convertstr_wrappers.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abronner <abronner@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/29 16:13:17 by abronner          #+#    #+#             */
-/*   Updated: 2025/06/29 22:47:06 by abronner         ###   ########.fr       */
+/*   Created: 2025/07/09 07:25:44 by abronner          #+#    #+#             */
+/*   Updated: 2025/07/09 07:31:50 by abronner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ctype.h"
+#include "ft_std.h"
 
-//	Checks whether the passed character 'int c' is a space.
+//	Converts the inital portion of the string pointed to by 'nptr' to int. The
+//	behaviour is the same as 'ft_strtol(nptr, NULL, 10)' but ft_atoi() does not
+//	check for over- or underflows.
 
-int	ft_isspace(int c)
+int	ft_atoi(const char *nptr)
 {
-	return ((c >= 9 && c <= 13) || c == ' ');
-}
+	long	val;
 
-//	Checks whether the passed character 'int c' is printable.
-
-int	ft_isprint(int c)
-{
-	return (ft_isspace(c) || ft_isgraph(c));
+	val = ft_strtol(nptr, NULL, 10);
+	return ((int)val);
 }

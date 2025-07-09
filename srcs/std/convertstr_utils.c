@@ -1,27 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print.c                                            :+:      :+:    :+:   */
+/*   convertstr_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abronner <abronner@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/29 16:13:17 by abronner          #+#    #+#             */
-/*   Updated: 2025/06/29 22:47:06 by abronner         ###   ########.fr       */
+/*   Created: 2025/07/08 23:05:52 by abronner          #+#    #+#             */
+/*   Updated: 2025/07/09 07:31:27 by abronner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ctype.h"
+#include "ft_std.h"
 
-//	Checks whether the passed character 'int c' is a space.
+//	Returns the position of 'c' in 'sbase' if c is present in the first 'base'
+//	characters of 'sbase'. If 'c' is not present returns '-1'..
 
-int	ft_isspace(int c)
+int	ft_basechr(const char *sbase, int base, char c)
 {
-	return ((c >= 9 && c <= 13) || c == ' ');
-}
+	int	i;
 
-//	Checks whether the passed character 'int c' is printable.
-
-int	ft_isprint(int c)
-{
-	return (ft_isspace(c) || ft_isgraph(c));
+	i = 0;
+	while (sbase[i] && i < base)
+	{
+		if (ft_tolower(sbase[i]) == ft_tolower(c))
+			return (i);
+		++i;
+	}
+	return (-1);
 }
