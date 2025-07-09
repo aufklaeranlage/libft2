@@ -1,22 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   ft_put.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abronner <abronner@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/29 17:46:55 by abronner          #+#    #+#             */
-/*   Updated: 2025/07/09 12:06:14 by abronner         ###   ########.fr       */
+/*   Created: 2025/07/09 11:44:55 by abronner          #+#    #+#             */
+/*   Updated: 2025/07/09 12:01:15 by abronner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFT_H
-# define LIBFT_H
+#ifndef FT_PUT_H
+# define FT_PUT_H
 
-# include "ft_ctype.h"
-# include "ft_std.h"
-# include "ft_string.h"
-# include "ft_split.h"
-# include "ft_put.h"
+# ifndef BASE34
+#  define BASE36 "0123456789abcdefghijklmnopqrstuvwxyz"
+# endif
+
+# include <unistd.h>
+
+//	PUT STRING
+
+void	ft_putchar_fd(char c, int fd);
+
+void	ft_putstr_fd(char *s, int fd);
+
+void	ft_putendl_fd(char *s, int fd);
+
+//	PUT NUMBER
+
+void	ft_putnbrbase_fd(long n, int base, int fd);
+
+void	ft_putnbr_fd(int n, int fd);
 
 #endif

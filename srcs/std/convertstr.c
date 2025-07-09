@@ -6,11 +6,12 @@
 /*   By: abronner <abronner@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 05:57:43 by abronner          #+#    #+#             */
-/*   Updated: 2025/07/09 07:30:56 by abronner         ###   ########.fr       */
+/*   Updated: 2025/07/09 12:05:22 by abronner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_std.h"
+#include "ft_ctype.h"
 
 #include <limits.h>
 

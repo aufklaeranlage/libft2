@@ -1,10 +1,8 @@
-#include "ft_std.h"
-#include "ft_string.h"
-
-char	addOne(unsigned int i, char c) {return (i + c);}
+#include "libft.h"
+#include <limits.h>
 
 int main(void)
 {
-	char	*s = ft_strmapi("1234", addOne);
+	ft_putnbr_fd(INT_MIN, 1);
 	return (0);
 }

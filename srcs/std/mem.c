@@ -6,11 +6,12 @@
 /*   By: abronner <abronner@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 22:36:43 by abronner          #+#    #+#             */
-/*   Updated: 2025/07/08 19:36:41 by abronner         ###   ########.fr       */
+/*   Updated: 2025/07/09 12:04:57 by abronner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_std.h"
+#include "ft_ctype.h"
 
 //	Fills the first 'n' bytes of section 's' with the constant byte 'c'.
 //	Returns a pointer to the memory section 's'.

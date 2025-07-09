@@ -6,7 +6,7 @@
 #    By: abronner <abronner@student.42berlin.de>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/10 10:46:56 by abronner          #+#    #+#              #
-#    Updated: 2025/07/09 07:32:43 by abronner         ###   ########.fr        #
+#    Updated: 2025/07/09 12:04:31 by abronner         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ SRC_DIR		:=	srcs/
 
 OBJ_DIR		:=	objs/
 
-SUB_DIR		:=	ctype/ std/ strings/ split/
+SUB_DIR		:=	ctype/ std/ strings/ split/ put/
 
 INC_DIR		:=	incl/
 
@@ -43,6 +43,10 @@ O_STRING	:=	$(patsubst %.c,$(OBJ_DIR)%.o,$(S_STRING))
 S_SPLIT		:=	split.c
 
 O_SPLIT		:=	$(patsubst %.c,$(OBJ_DIR)%.o,$(S_SPLIT))
+
+S_PUT		:=	putstr.c putnbr.c
+
+O_PUT		:=	$(patsubst %.c,$(OBJ_DIR)%.o,$(S_PUT))
 
 OBJS		:=	$(patsubst %.c,$(OBJ_DIR)%.o,$(SRCS))
 
@@ -95,7 +99,11 @@ split: $(OBJ_DIR) string $(O_SPLIT)
 	@ar rcs $(NAME) $(O_SPLIT)
 	@$(PRNT) "Adding $(P_SPLIT) files to $(P_NAME).\n"
 
-$(NAME): p_name ctype std string split
+put: $(OBJ_DIR) string $(O_PUT)
+	@ar rcs $(NAME) $(O_PUT)
+	@$(PRNT) "Adding $(P_PUT) files to $(P_NAME).\n"
+
+$(NAME): p_name ctype std string split put
 
 p_name:
 	@$(PRNT) "Creating library $(P_NAME).\n"
@@ -136,5 +144,7 @@ P_STD=$(C_YLW)$(BLD)std$(RESET)
 P_STRING=$(C_YLW)$(BLD)string$(RESET)
 
 P_SPLIT=$(C_YLW)$(BLD)split$(RESET)
+
+P_PUT=$(C_YLW)$(BLD)put$(RESET)
 
 P_AT=$(C_GRN)$(BLD)$@$(RESET)

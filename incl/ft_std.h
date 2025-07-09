@@ -17,8 +17,6 @@
 #  define BASE36 "0123456789abcdefghijklmnopqrstuvwxyz"
 # endif
 
-#include "ft_ctype.h"
-
 # include <stddef.h>
 
 //	MEM
