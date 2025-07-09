@@ -14,6 +14,7 @@
 # define FT_STRING_H
 
 # include <stddef.h>
+#include <stdlib.h>
 
 //	CHECK
 
@@ -58,5 +59,11 @@ char	*ft_substr(const char *s, unsigned int start, size_t len);
 char	*ft_strjoin(const char *pre, const char *suf);
 
 char	*ft_strtrim(const char *str, const char *set);
+
+//	STRITER
+
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
+
+void	ft_striteri(char *s, void (*f)(unsigned int, char*));
 
 #endif

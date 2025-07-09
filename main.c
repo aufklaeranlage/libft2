@@ -1,10 +1,10 @@
 #include "ft_std.h"
+#include "ft_string.h"
+
+char	addOne(unsigned int i, char c) {return (i + c);}
 
 int main(void)
 {
-	long i;
-	char *s;
-
-	i = ft_atoi("\011\012\013\014\0151");
+	char	*s = ft_strmapi("1234", addOne);
 	return (0);
 }

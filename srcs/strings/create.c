@@ -13,8 +13,6 @@
 #include "ft_string.h"
 #include "ft_std.h"
 
-#include <stdlib.h>
-
 //	Returns a pointer to a new string, which is a duplicate of string 's'.
 //	Memory for the new string is obtained with malloc and can be freed with
 //	free.

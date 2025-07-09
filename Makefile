@@ -36,7 +36,7 @@ S_STD		:=	mem.c convertstr.c convertstr_utils.c convertstr_wrappers.c
 
 O_STD		:=	$(patsubst %.c,$(OBJ_DIR)%.o,$(S_STD))
 
-S_STRING	:=	check.c copy.c search.c create.c
+S_STRING	:=	check.c copy.c search.c create.c striter.c
 
 O_STRING	:=	$(patsubst %.c,$(OBJ_DIR)%.o,$(S_STRING))
 
@@ -127,7 +127,7 @@ P_NAME=$(C_RED)$(BLD)$(NAME)$(RESET)
 
 P_ODIR=$(C_BLU)$(BLD)$(OBJ_DIR)$(RESET)
 
-P_FLAG=$(C_MAG)-g$(RESET)
+P_FLAG=$(C_MAG)$(BLD)-g$(RESET)
 
 P_CTYPE=$(C_YLW)$(BLD)ctype$(RESET)
 
