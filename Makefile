@@ -6,7 +6,7 @@
 #    By: abronner <abronner@student.42berlin.de>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/10 10:46:56 by abronner          #+#    #+#              #
-#    Updated: 2025/07/09 12:21:44 by abronner         ###   ########.fr        #
+#    Updated: 2025/07/09 12:40:56 by abronner         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,7 @@ S_PUT		:=	putstr.c putnbr.c
 
 O_PUT		:=	$(patsubst %.c,$(OBJ_DIR)%.o,$(S_PUT))
 
-S_LIST		:=	listnew.c
+S_LIST		:=	listnew.c listutils.c listdel.c
 
 O_LIST		:=	$(patsubst %.c,$(OBJ_DIR)%.o,$(S_LIST))
 
