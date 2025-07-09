@@ -1,23 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   ft_list.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abronner <abronner@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/29 17:46:55 by abronner          #+#    #+#             */
-/*   Updated: 2025/07/09 12:19:34 by abronner         ###   ########.fr       */
+/*   Created: 2025/07/09 12:13:20 by abronner          #+#    #+#             */
+/*   Updated: 2025/07/09 12:19:54 by abronner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFT_H
-# define LIBFT_H
+#ifndef FT_LIST_H
+# define FT_LIST_H
 
-# include "ft_ctype.h"
-# include "ft_std.h"
-# include "ft_string.h"
-# include "ft_split.h"
-# include "ft_put.h"
-# include "ft_list.h"
+//	content:	Data in the node.
+//	next:		Pointer to the next node, if this is the last node is NULL.
+
+typedef struct	s_list
+{
+	void			*content;
+	struct s_list	*next;
+}					t_list;
+
+t_list	*ft_lstnew(void *content);
 
 #endif
