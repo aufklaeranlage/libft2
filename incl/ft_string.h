@@ -6,7 +6,7 @@
 /*   By: abronner <abronner@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 17:53:13 by abronner          #+#    #+#             */
-/*   Updated: 2025/06/30 05:55:13 by abronner         ###   ########.fr       */
+/*   Updated: 2025/07/12 10:25:02 by abronner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define FT_STRING_H
 
 # include <stddef.h>
-#include <stdlib.h>
+# include <stdlib.h>
 
 //	CHECK
 
@@ -48,6 +48,7 @@ size_t	ft_strncat(char *dst, const char *src, size_t size);
 
 size_t	ft_strlcat(char *dst, const char *src, size_t size);
 
+void	ft_bzero(void *s, size_t n);
 //	CREATE
 
 char	*ft_strdup(const char *s);

@@ -13,8 +13,8 @@
 #ifndef FT_SPLIT_H
 # define FT_SPLIT_H
 
-# include <stdlib.h>
-
 char	**ft_split(const char *s, char c);
+
+void	ft_splitclear(char ***split);
 
 #endif

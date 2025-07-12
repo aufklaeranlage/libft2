@@ -6,7 +6,7 @@
 /*   By: abronner <abronner@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 18:11:53 by abronner          #+#    #+#             */
-/*   Updated: 2025/06/29 22:47:21 by abronner         ###   ########.fr       */
+/*   Updated: 2025/07/12 10:24:42 by abronner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,4 +115,13 @@ size_t	ft_strlcat(char *dst, const char *src, size_t size)
 	while (src[i])
 		++i;
 	return (j + i);
+}
+
+//	Ereases the data in the 'n' bytes of the memory starting at the location
+//	pointed to by 's', by writing zeros (Bytes containiong '0') to that area.
+
+void	ft_bzero(void *s, size_t n)
+{
+	while (n--)
+		((char *)s)[n] = '\0';
 }

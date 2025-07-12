@@ -6,7 +6,7 @@
 #    By: abronner <abronner@student.42berlin.de>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/10 10:46:56 by abronner          #+#    #+#              #
-#    Updated: 2025/07/09 12:40:56 by abronner         ###   ########.fr        #
+#    Updated: 2025/07/12 10:33:32 by abronner         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,8 @@ S_CTYPE		:=	alpha.c digit.c alnum.c graph.c print.c special.c convertchr.c
 
 O_CTYPE		:=	$(patsubst %.c,$(OBJ_DIR)%.o,$(S_CTYPE))
 
-S_STD		:=	mem.c convertstr.c convertstr_utils.c convertstr_wrappers.c
+S_STD		:=	mem.c mem_create.c convertstr.c convertstr_utils.c \
+				convertstr_wrappers.c
 
 O_STD		:=	$(patsubst %.c,$(OBJ_DIR)%.o,$(S_STD))
 

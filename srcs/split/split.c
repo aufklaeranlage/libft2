@@ -64,10 +64,10 @@ static char	**ft_splitinit(size_t depth)
 	return (ret);
 }
 
-//	Frees the with malloc(3) allocated strings inside an array of strings but
-//	leaves the pointer to the string array intact.
+//	Deletes and frees the given split and all the strings allocated inside,
+//	using free(3). Finally, set the pointer to the split to NULL.
 
-void	ft_splitclear(char **split)
+void	ft_splitclear(char ***split)
 {
 	size_t	i;
 
@@ -76,18 +76,6 @@ void	ft_splitclear(char **split)
 	i = 0;
 	while (split[i])
 		free(split[i++]);
-}
-
-//	Frees the with malloc(3) allocated strings inside an array of strings and
-//	the pointer to the string array.
-
-void	ft_splitfree(char **split)
-{
-	size_t	i;
-
-	if (!split)
-		return ;
-	i = 0;
-	while (split[i])
-		free(split[i++]);
+	free(*split);
+	*split = NULL;
 }
