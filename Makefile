@@ -20,7 +20,11 @@ SRC_DIR		:=	srcs/
 
 OBJ_DIR		:=	objs/
 
+<<<<<<< HEAD
 SUB_DIR		:=	ctype/ std/ strings/ split/ put/ list/
+=======
+SUB_DIR		:=	ctype/ std/ strings/ split/ stack/
+>>>>>>> a1864c8 (stack)
 
 INC_DIR		:=	incl/
 
@@ -53,8 +57,15 @@ S_LIST		:=	listnew.c listutils.c listdel.c
 
 O_LIST		:=	$(patsubst %.c,$(OBJ_DIR)%.o,$(S_LIST))
 
+S_STACK		:=	stack.c
+
+O_STACK		:=	$(patsubst %.c,$(OBJ_DIR)%.o,$(S_STACK))
+
 OBJS		:=	$(patsubst %.c,$(OBJ_DIR)%.o,$(SRCS))
 
+# * MISC ********************************************************************* #
+
+DOTFILES	:=	.ctype .std .string .split .put .list .stack
 
 # * COMMANDS ***************************************************************** #
 
@@ -87,31 +98,54 @@ g: p_g $(NAME)
 p_g:
 	@$(PRNT) "Compiling $(P_NAME) with $(P_FLAG) flag\n"
 
-ctype: $(OBJ_DIR) $(O_CTYPE)
+ctype: .ctype
+
+.ctype: $(OBJ_DIR) $(O_CTYPE)
+	@touch .ctype
 	@ar rcs $(NAME) $(O_CTYPE)
 	@$(PRNT) "Adding $(P_CTYPE) files to $(P_NAME).\n"
 
-std: $(OBJ_DIR) ctype $(O_STD)
+std: .std
+
+.std: $(OBJ_DIR) ctype $(O_STD)
+	@touch .std
 	@ar rcs $(NAME) $(O_STD)
 	@$(PRNT) "Adding $(P_STD) files to $(P_NAME).\n"
 
-string: $(OBJ_DIR) std $(O_STRING)
+string: .string
+
+.string: $(OBJ_DIR) std $(O_STRING)
+	@touch .string
 	@ar rcs $(NAME) $(O_STRING)
 	@$(PRNT) "Adding $(P_STRING) files to $(P_NAME).\n"
 
-split: $(OBJ_DIR) string $(O_SPLIT)
+split: .split
+
+.split: $(OBJ_DIR) string $(O_SPLIT)
+	@touch .split
 	@ar rcs $(NAME) $(O_SPLIT)
 	@$(PRNT) "Adding $(P_SPLIT) files to $(P_NAME).\n"
 
-put: $(OBJ_DIR) string $(O_PUT)
+put: put
+
+.put: $(OBJ_DIR) string $(O_PUT)
 	@ar rcs $(NAME) $(O_PUT)
 	@$(PRNT) "Adding $(P_PUT) files to $(P_NAME).\n"
 
-list: $(OBJ_DIR) $(O_LIST)
+list: .list
+
+.list: $(OBJ_DIR) $(O_LIST)
 	@ar rcs $(NAME) $(O_LIST)
 	@$(PRNT) "Adding $(P_LIST) files to $(P_NAME).\n"
 
-$(NAME): p_name ctype std string split put list
+stack: .stack
+
+.stack: $(OBJ_DIR) $(O_STACK)
+	@touch .stack
+	@ar rcs $(NAME) $(O_STACK)
+	@$(PRNT) "Adding $(P_STACK) files to $(P_NAME).\n"
+
+$(NAME): p_name ctype std string split put list stack
 
 p_name:
 	@$(PRNT) "Creating library $(P_NAME).\n"
@@ -127,7 +161,7 @@ $(OBJ_DIR)%.o: %.c
 re: fclean all
 
 clean:
-	@$(RM) $(OBJ_DIR)
+	@$(RM) $(OBJ_DIR) $(DOTFILES)
 	@$(PRNT) "Deleting object files for $(P_NAME).\n"
 
 fclean: clean
@@ -135,7 +169,7 @@ fclean: clean
 	@$(PRNT) "Deleting library $(P_NAME).\n"
 
 .PHONY: all bonus re clean fclean make \
-	ctype
+	ctype std string split stack
 
 # * PRINTING PRESETS ********************************************************************** #
 
@@ -156,5 +190,7 @@ P_SPLIT=$(C_YLW)$(BLD)split$(RESET)
 P_PUT=$(C_YLW)$(BLD)put$(RESET)
 
 P_LIST=$(C_YLW)$(BLD)list$(RESET)
+
+P_STACK=$(C_YLW)$(BLD)stack$(RESET)
 
 P_AT=$(C_GRN)$(BLD)$@$(RESET)
