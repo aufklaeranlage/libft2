@@ -20,11 +20,7 @@ SRC_DIR		:=	srcs/
 
 OBJ_DIR		:=	objs/
 
-<<<<<<< HEAD
-SUB_DIR		:=	ctype/ std/ strings/ split/ put/ list/
-=======
-SUB_DIR		:=	ctype/ std/ strings/ split/ stack/
->>>>>>> a1864c8 (stack)
+SUB_DIR		:=	ctype/ std/ strings/ split/ put/ list/ stack/
 
 INC_DIR		:=	incl/
 
@@ -126,7 +122,7 @@ split: .split
 	@ar rcs $(NAME) $(O_SPLIT)
 	@$(PRNT) "Adding $(P_SPLIT) files to $(P_NAME).\n"
 
-put: put
+put: .put
 
 .put: $(OBJ_DIR) string $(O_PUT)
 	@ar rcs $(NAME) $(O_PUT)
