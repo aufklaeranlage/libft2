@@ -15,7 +15,7 @@
 #include <stddef.h>
 #include <stdlib.h>
 
-int		enqueue(t_queue *q, t_node *new)
+int	enqueue(t_queue *q, t_node *new)
 {
 	if (!q)
 		return (1);
@@ -45,4 +45,26 @@ void	*dequeue(t_queue *q)
 	free(del);
 	--q->size;
 	return (ret);
+}
+
+void	queue_clear(t_queue *q, void (*del)(void *))
+{
+	t_node	*node;
+	t_node	*next;
+
+	if (!q)
+		return ;
+	node = q->front;
+	while (node)
+	{
+		next = node->next;
+		if (del)
+			(*del)(node->content);
+		free(node);
+		node = next;
+	}
+	q->front = NULL;
+	q->back = NULL;
+	q->size = 0;
+	return ;
 }

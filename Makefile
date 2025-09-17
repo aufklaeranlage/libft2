@@ -20,7 +20,7 @@ SRC_DIR		:=	srcs/
 
 OBJ_DIR		:=	objs/
 
-SUB_DIR		:=	ctype/ std/ strings/ split/ put/ list/ stack/
+SUB_DIR		:=	ctype/ std/ strings/ split/ put/ list/ gnl/
 
 INC_DIR		:=	incl/
 
@@ -49,19 +49,19 @@ S_PUT		:=	putstr.c putnbr.c
 
 O_PUT		:=	$(patsubst %.c,$(OBJ_DIR)%.o,$(S_PUT))
 
-S_LIST		:=	listnew.c listutils.c listdel.c
+S_LIST		:=	listnew.c listutils.c listdel.c stack.c queue.c
 
 O_LIST		:=	$(patsubst %.c,$(OBJ_DIR)%.o,$(S_LIST))
 
-S_STACK		:=	stack.c
+S_GNL		:=	get_next_line.c
 
-O_STACK		:=	$(patsubst %.c,$(OBJ_DIR)%.o,$(S_STACK))
+O_GNL		:=	$(patsubst %.c,$(OBJ_DIR)%.o,$(S_GNL))
 
 OBJS		:=	$(patsubst %.c,$(OBJ_DIR)%.o,$(SRCS))
 
 # * MISC ********************************************************************* #
 
-DOTFILES	:=	.ctype .std .string .split .put .list .stack
+DOTFILES	:=	.ctype .std .string .split .put .list .gnl
 
 # * COMMANDS ***************************************************************** #
 
@@ -134,14 +134,14 @@ list: .list
 	@ar rcs $(NAME) $(O_LIST)
 	@$(PRNT) "Adding $(P_LIST) files to $(P_NAME).\n"
 
-stack: .stack
+gnl: .gnl
 
-.stack: $(OBJ_DIR) $(O_STACK)
-	@touch .stack
-	@ar rcs $(NAME) $(O_STACK)
-	@$(PRNT) "Adding $(P_STACK) files to $(P_NAME).\n"
+.gnl: $(OBJ_DIR) list string $(O_GNL)
+	@touch .gnl
+	@ar rcs $(NAME) $(O_GNL)
+	@$(PRNT) "Adding $(P_GNL) files to $(P_NAME).\n"
 
-$(NAME): p_name ctype std string split put list stack
+$(NAME): p_name ctype std string split put list gnl
 
 p_name:
 	@$(PRNT) "Creating library $(P_NAME).\n"
@@ -187,6 +187,6 @@ P_PUT=$(C_YLW)$(BLD)put$(RESET)
 
 P_LIST=$(C_YLW)$(BLD)list$(RESET)
 
-P_STACK=$(C_YLW)$(BLD)stack$(RESET)
+P_STACK=$(C_YLW)$(BLD)gnl$(RESET)
 
 P_AT=$(C_GRN)$(BLD)$@$(RESET)

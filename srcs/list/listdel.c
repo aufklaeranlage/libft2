@@ -49,7 +49,7 @@ int	ft_lstrmvone(t_list *lst, t_node *node, void (*del)(void *))
 	if (!cur)
 		return (1);
 	if (!prev)
-		lst->front= cur->next;
+		lst->front = cur->next;
 	else
 		prev->next = cur->next;
 	if (cur == lst->back)

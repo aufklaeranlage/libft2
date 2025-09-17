@@ -24,7 +24,7 @@ struct s_node
 	t_node	*next;
 };
 
-typedef struct	s_list
+typedef struct s_list
 {
 	t_node	*front;
 	t_node	*back;
@@ -69,9 +69,11 @@ void	*pop(t_stack *stack);
 
 void	*peak(t_stack *stack);
 
+void	stack_clear(t_stack *s, void (*del)(void *));
+
 //	QUEUE
 
-typedef struct	t_queue
+typedef struct t_queue
 {
 	t_node	*front;
 	t_node	*back;
@@ -83,5 +85,7 @@ typedef struct	t_queue
 int		enqueue(t_queue *q, t_node *new);
 
 void	*dequeue(t_queue *q);
+
+void	queue_clear(t_queue *q, void (*del)(void *));
 
 #endif

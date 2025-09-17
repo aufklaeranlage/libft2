@@ -48,3 +48,24 @@ void	*peak(t_stack *stack)
 		return (NULL);
 	return (stack->front);
 }
+
+void	stack_clear(t_stack *s, void (*del)(void *))
+{
+	t_node	*node;
+	t_node	*next;
+
+	if (!s)
+		return ;
+	node = s->front;
+	while (node)
+	{
+		next = node->next;
+		if (del)
+			(*del)(node->content);
+		free(node);
+		node = next;
+	}
+	s->front = NULL;
+	s->size = 0;
+	return ;
+}

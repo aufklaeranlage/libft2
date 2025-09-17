@@ -22,7 +22,7 @@ char	*ft_strdup(const char *s)
 {
 	char	*ret;
 	size_t	slen;
-	
+
 	if (!s)
 		return (NULL);
 	slen = ft_strlen(s) + 1;

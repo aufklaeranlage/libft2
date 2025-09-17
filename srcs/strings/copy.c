@@ -21,7 +21,6 @@
 size_t	ft_strncpy(char *dst, const char *src, size_t size)
 {
 	size_t	i;
-	// size_t	j;
 
 	i = 0;
 	while (i < size && src[i])
@@ -31,12 +30,6 @@ size_t	ft_strncpy(char *dst, const char *src, size_t size)
 	}
 	if (i < size)
 		dst[i] = '\0';
-	// j = 0;
-	// while (i + j < size)
-	// {
-	// 	dst[i + j] = '\0';
-	// 	++j;
-	// }
 	while (src[i])
 		++i;
 	return (i);
@@ -51,7 +44,7 @@ size_t	ft_strncpy(char *dst, const char *src, size_t size)
 size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 {
 	if (!size)
-		return(ft_strlen(src));
+		return (ft_strlen(src));
 	dst[size - 1] = '\0';
 	return (ft_strncpy(dst, src, size - 1));
 }
@@ -99,7 +92,7 @@ size_t	ft_strlcat(char *dst, const char *src, size_t size)
 	size_t	j;
 
 	if (!size)
-		return(ft_strlen(src));
+		return (ft_strlen(src));
 	j = 0;
 	while (j < size && dst[j])
 		++j;

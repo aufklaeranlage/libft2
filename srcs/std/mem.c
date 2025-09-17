@@ -88,7 +88,7 @@ void	*ft_memchr(const void *s, int c, size_t n)
 //	the bigger value, a negative return value means that 's2' had the bigger
 //	value. If the first 'n' bytes in 's1' and 's2' were identical returns 0.
 
-int		ft_memcmp(const void *s1, const void *s2, size_t n)
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
 	size_t	i;
 	int		ret;

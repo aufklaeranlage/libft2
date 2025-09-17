@@ -60,7 +60,7 @@ long	ft_strtol(const char *s, char **endptr, int base)
 	if (endptr)
 		*endptr = (char *)s + i;
 	if (base == 0)
-		return base_zero(s + i, endptr, sbase);
+		return (base_zero(s + i, endptr, sbase));
 	return (sign * calculate_value(s + i, endptr, sbase, base));
 }
 
@@ -85,10 +85,11 @@ static long	base_zero(const char *s, char **endptr, const char *sbase)
 //	dig small zero check needs to be before overflow check because LONG_MAX will
 //	overflow if dig is -1.
 
-static long	calculate_value(const char *s, char **endptr, const char *sbase, int base)
+static long	calculate_value(const char *s, char **endptr, const char *sbase,
+							int base)
 {
 	size_t	i;
-	long 	val;
+	long	val;
 	long	dig;
 
 	i = 0;

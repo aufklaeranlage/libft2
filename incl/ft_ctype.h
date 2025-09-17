@@ -89,7 +89,7 @@ int	ft_isxdigit(int c);
 
 int	ft_islowxdigit(int c);
 
-int ft_isupxdigit(int c);
+int	ft_isupxdigit(int c);
 
 //		ALNUM
 
