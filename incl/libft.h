@@ -19,5 +19,6 @@
 # include "ft_split.h"
 # include "ft_put.h"
 # include "ft_list.h"
+# include "ft_gnl.h"
 
 #endif

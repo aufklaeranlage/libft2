@@ -53,7 +53,7 @@ S_LIST		:=	listnew.c listutils.c listdel.c stack.c queue.c
 
 O_LIST		:=	$(patsubst %.c,$(OBJ_DIR)%.o,$(S_LIST))
 
-S_GNL		:=	get_next_line.c
+S_GNL		:=	get_next_line.c get_next_line_utils.c
 
 O_GNL		:=	$(patsubst %.c,$(OBJ_DIR)%.o,$(S_GNL))
 

@@ -6,7 +6,7 @@
 /*   By: abronner <abronner@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 09:37:27 by abronner          #+#    #+#             */
-/*   Updated: 2025/09/17 09:44:12 by abronner         ###   ########.fr       */
+/*   Updated: 2025/09/17 14:38:34 by abronner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,101 +14,94 @@
 #include "ft_list.h"
 #include "ft_string.h"
 
+#include <stdlib.h>
 #include <unistd.h>
 
-static char	*read_to_out(t_queue *q, int fd, size_t tsize);
+static int	fill_list(t_list *lst, int fd);
 
-static char	*init_out(size_t size, size_t tsize);
+static int	read_to_node(t_list *lst, int fd);
 
-static int	store_remainder(t_queue *q, char *str, size_t size);
+static int	store_str(t_list *lst, size_t size, char *str);
 
 char	*get_next_line(int fd)
 {
-	static t_queue	remain[MAXFDS];
-	char			testbuf;
+	static t_list	remain[MAXFDS];
 	char			*out;
-	size_t			size;
 
 	if (fd < 0 || fd >= MAXFDS)
 		return (NULL);
-	if (read(fd, &testbuf, 0) == -1)
-		return (queue_clear(remain + fd, free), NULL);
-	size = 0;
-	if (remain[fd].front)
-		size = ((t_gnlstr *)remain[fd].front->content)->size;
-	if (size && ((t_gnlstr *)remain[fd].front->content)->str[size - 1] == '\n')
-		out = init_out(size + 1, 0);
-	else
-		out = read_to_out(remain + fd, fd, size);
-	if ((remain + fd)->front)
-		ft_strncpy(out, ((t_gnlstr *)remain[fd].front->content)->str, size);
-	if (size)
-		free(((t_gnlstr *)dequeue(remain + fd))->str);
+	if (read(fd, NULL, 0) == -1)
+		return (ft_lstclear(remain + fd, strclear), NULL);
+	if (fill_list(remain + fd, fd))
+		return (ft_lstclear(remain + fd, strclear), NULL);
+	out = create_line(remain + fd);
+	if (!out)
+		return (ft_lstclear(remain + fd, strclear), NULL);
 	return (out);
 }
 
-static char	*read_to_out(t_queue *q, int fd, size_t tsize)
+//	Either the list has a finished node in the first position and we return
+//	or it needs to be filled.
+
+static int	fill_list(t_list *lst, int fd)
 {
-	char	*out;
+	t_node	*node;
+	t_str	*str;
+
+	if (!lst->front)
+		if (read_to_node(lst, fd))
+			return (1);
+	node = lst->front;
+	str = node->content;
+	while (str->size > 0 && str->data[str->size - 1] != '\n')
+	{
+		if (read_to_node(lst, fd))
+			return (0);
+		node = node->next;
+		str = node->content;
+	}
+	return (0);
+}
+
+static int	read_to_node(t_list *lst, int fd)
+{
 	char	buf[BUFFER_SIZE + 1];
-	ssize_t	size;
-	char	*tmp;
+	size_t	size;
+	char	*tmp[2];
 
 	size = read(fd, buf, BUFFER_SIZE);
 	if (size <= 0)
-		return (init_out(size, tsize));
+		return (1);
 	buf[size] = '\0';
-	tmp = ft_strchr(buf, '\n');
-	if (tmp)
+	tmp[0] = buf;
+	tmp[1] = ft_strchr(tmp[0] + 1, '\n');
+	while (tmp[1])
 	{
-		if (store_remainder(q, tmp + 1, size - (tmp - buf) - 1))
-			return (NULL);
-		size = tmp - buf + 1;
-		out = init_out(size, tsize);
+		if (store_str(lst, tmp[1] - tmp[0] + 1, tmp[0]))
+			return (1);
+		tmp[0] = tmp[1] + 1;
+		tmp[1] = ft_strchr(tmp[0], '\n');
 	}
-	else
-		out = read_to_out(q, fd, tsize + size);
-	if (!out)
-		return (queue_clear(q, free), NULL);
-	ft_strncpy(out + tsize, buf, size);
-	return (out);
+	tmp[1] = buf + size;
+	if (store_str(lst, tmp[1] - tmp[0], tmp[0]))
+		return (1);
+	return (0);
 }
 
-static char	*init_out(size_t size, size_t tsize)
+static int	store_str(t_list *lst, size_t size, char *str)
 {
-	char	*out;
+	t_str	*content;
+	t_node	*node;
 
-	if (tsize + size == 0)
-		return (NULL);
-	out = malloc((tsize + size + 1) * sizeof(*out));
-	if (!out)
-		return (NULL);
-	out[tsize + size] = '\0';
-	return (out);
-}
-
-static int	store_remainder(t_queue *q, char *str, size_t size)
-{
-	t_gnlstr	content;
-	t_node		*node;
-	char		*check;
-
-	if (size == 0)
-		return (0);
-	check = ft_strchr(str, '\n');
-	if (!check)
-		check = str + size;
-	else
-		++check;
-	content.str = ft_substr(str, 0, check - str);
-	if (!content.str)
-		return (queue_clear(q, free), 1);
-	content.size = check - str;
-	node = ft_nodenew(&content);
-	if (!node)
-		return (queue_clear(q, free), free(content.str), 2);
-	enqueue(q, node);
-	if (*(check - 1) == '\n' && size - (check - str))
-		return (store_remainder(q, check, size - (check - str)));
+	content = malloc(sizeof(*content));
+	node = ft_nodenew(NULL);
+	if (!content || !node)
+		return (1);
+	content->size = size;
+	content->data = ft_substr(str, 0, size);
+	if (!content->data)
+		return (free(content), free(node), 2);
+	node->content = content;
+	ft_lstadd_back(lst, node);
 	return (0);
 }
