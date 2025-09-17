@@ -1,31 +1,48 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   listutils.c                                        :+:      :+:    :+:   */
+/*   queue.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abronner <abronner@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/09 12:24:51 by abronner          #+#    #+#             */
-/*   Updated: 2025/07/09 12:29:49 by abronner         ###   ########.fr       */
+/*   Created: 2025/09/17 10:28:35 by abronner          #+#    #+#             */
+/*   Updated: 2025/09/17 10:42:05 by abronner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_list.h"
 
+#include <stddef.h>
 #include <stdlib.h>
 
-//	Counts the number of nodes in the list 'lst'.
-
-int	ft_lstsize(t_list *lst)
+int		enqueue(t_queue *q, t_node *new)
 {
-	return (lst->size);
+	if (!q)
+		return (1);
+	if (!new)
+		return (2);
+	if (!q->back)
+		q->front = new;
+	else
+		q->back->next = new;
+	q->back = new;
+	++q->size;
+	return (0);
 }
 
-//	Returns the last node of the list 'lst'.
-
-t_node	*ft_lstlast(t_list *lst)
+void	*dequeue(t_queue *q)
 {
-	if (!lst)
+	void	*ret;
+	t_node	*del;
+
+	if (!q || !q->front)
 		return (NULL);
-	return (lst->back);
+	del = q->front;
+	ret = del->content;
+	q->front = del->next;
+	if (q->front == NULL)
+		q->back = NULL;
+	free(del);
+	--q->size;
+	return (ret);
 }
