@@ -67,7 +67,7 @@ char	*ft_substr(const char *s, unsigned int start, size_t len)
 	if (!s)
 		return (NULL);
 	slen = 0;
-	while (slen < len && s[slen])
+	while (slen < start + len && s[slen])
 		++slen;
 	if (slen < start)
 		return (ft_strdup(""));
