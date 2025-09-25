@@ -32,7 +32,7 @@ char	*ft_ltostr(long num, int base)
 	char		*ret;
 	uint64_t	len;
 	int			sign;
-	
+
 	if (base < 2 || base > 36)
 		return (NULL);
 	sign = num < 0;
