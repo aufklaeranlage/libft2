@@ -93,6 +93,8 @@ static int	store_str(t_list *lst, size_t size, char *str)
 	t_str	*content;
 	t_node	*node;
 
+	if (size == 0)
+		return (0);
 	content = malloc(sizeof(*content));
 	node = ft_nodenew(NULL);
 	if (!content || !node)

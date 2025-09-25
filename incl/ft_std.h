@@ -6,7 +6,7 @@
 /*   By: abronner <abronner@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 05:54:48 by abronner          #+#    #+#             */
-/*   Updated: 2025/07/12 10:32:40 by abronner         ###   ########.fr       */
+/*   Updated: 2025/09/25 10:51:50 by abronner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ void	*ft_calloc(size_t nelem, size_t elsize);
 //	CONVERTER
 
 long	ft_strtol(const char *s, char **endptr, int base);
+
+char	*ft_ltostr(long num, int base);
 
 //	CONVERTER UTILITIES
 
