@@ -15,7 +15,7 @@
 
 //	Outputs the character 'c' to the specified file descriptor.
 
-void	ft_putchar_fd(char c, int fd)
+void	ft_putchar_fd(const char c, int fd)
 {
 	write(fd, &c, 1);
 	return ;
@@ -23,7 +23,7 @@ void	ft_putchar_fd(char c, int fd)
 
 //	Outputs the string 's' to the specified file descriptor.
 
-void	ft_putstr_fd(char *s, int fd)
+void	ft_putstr_fd(const char *s, int fd)
 {
 	size_t	len;
 
@@ -32,7 +32,7 @@ void	ft_putstr_fd(char *s, int fd)
 	return ;
 }
 
-void	ft_putendl_fd(char *s, int fd)
+void	ft_putendl_fd(const char *s, int fd)
 {
 	ft_putstr_fd(s, fd);
 	ft_putchar_fd('\n', fd);
